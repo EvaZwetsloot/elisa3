@@ -131,9 +131,9 @@ int main(int argc,char *argv[]) {
     int robotAddress[NUM_robots] = {3802, 3795, 3768, 3772, 3813, 3804, 3820, 3735};
     int i = 0;
     int k = 0;
-    unsigned int robProx[NUM_ROBOTS][8];
+    unsigned int robProx[NUM_robots][8];
     // sent to robot
-    char robLSpeed[NUM_ROBOTS], robRSpeed[NUM_ROBOTS];
+    char robLSpeed[NUM_robots], robRSpeed[NUM_robots];
     char robRedLed, robGreenLed, robBlueLed;
 
     //cmdVelSubscriber = n.subscribe("mobile_base/cmd_vel", 10, handlerVelocity);
@@ -144,14 +144,14 @@ int main(int argc,char *argv[]) {
 
        getAllProximityFromAll(robProx);
 
-        for(k=0; k<NUM_ROBOTS; k++) {
+        for(k=0; k<NUM_robots; k++) {
             avoidObstacles(robProx[k], &robLSpeed[k], &robRSpeed[k]);
         }
         setLeftSpeedForAll(robLSpeed);
         setRightSpeedForAll(robRSpeed);
 
         if(updateRGB(&robRedLed, &robGreenLed, &robBlueLed)) {
-            for(k=0; k<NUM_ROBOTS; k++) {
+            for(k=0; k<NUM_robots; k++) {
                 //setRed(robotAddress[k], robRedLed);
                 setGreen(robotAddress[k], 50);
                 //setBlue(robotAddress[k], robBlueLed);
